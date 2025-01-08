@@ -1,17 +1,26 @@
 #include <iostream>
+#include <string>
+
+using namespace std;
+
+string exitString = "exit 0";
 
 int main() {
   // REPL (Read-Evaluate-Print-Loop)
   while (true) {
     // Flush after every std::cout / std:cerr
-    std::cout << std::unitbuf;
-    std::cerr << std::unitbuf;
+    cout << std::unitbuf;
+    cerr << std::unitbuf;
 
-    std::cout << "$ ";
+    cout << "$ ";
 
-    std::string input;
-    std::getline(std::cin, input);
+    string input;
+    getline(std::cin, input);
 
-    std::cout << input << ": command not found" << std::endl;
+    if (input == exitString) {
+      return 0;
+    }
+
+    cout << input << ": command not found" << endl;
   }
 }
