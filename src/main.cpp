@@ -4,34 +4,26 @@
 using namespace std;
 
 string exitCommand = "exit 0";
-string echoCommand = "echo";
+string echoCommand = "echo ";
 
 int main() {
+  cout << "$ ";
+  string input;
+  
   // REPL (Read-Evaluate-Print-Loop)
-  while (true) {
+  while (getline(cin, input) && input.find(exitCommand) != 0) {
     // Flush after every std::cout / std:cerr
     cout << std::unitbuf;
     cerr << std::unitbuf;
 
-    cout << "$ ";
-
-    string input;
-    getline(std::cin, input);
-
-    // Check for exit command.
-    if (input == exitCommand) {
-      return 0;
-    };
-
-    string echoCheck = input.substr(0, 4);
-
-    // Check for echo command.
-    if (echoCheck == echoCommand) {
-      string echo = input.substr(5, input.length() - echoCommand.length());
+    // TODO: Create helper function for builtins
+    if (input.find(echoCommand) == 0) {
+      string echo = input.substr(echoCommand.length());
       cout << echo << endl;
-    }
-    else {
+    } else {
       cout << input << ": command not found" << endl;
     }
+
+    cout << "$ ";
   }
 }
