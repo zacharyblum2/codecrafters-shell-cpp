@@ -3,7 +3,8 @@
 
 using namespace std;
 
-string exitString = "exit 0";
+string exitCommand = "exit 0";
+string echoCommand = "echo";
 
 int main() {
   // REPL (Read-Evaluate-Print-Loop)
@@ -17,10 +18,20 @@ int main() {
     string input;
     getline(std::cin, input);
 
-    if (input == exitString) {
+    // Check for exit command.
+    if (input == exitCommand) {
       return 0;
-    }
+    };
 
-    cout << input << ": command not found" << endl;
+    string echoCheck = input.substr(0, 4);
+
+    // Check for echo command.
+    if (echoCheck == echoCommand) {
+      string echo = input.substr(5, input.length() - echoCommand.length());
+      cout << echo << endl;
+    }
+    else {
+      cout << input << ": command not found" << endl;
+    }
   }
 }
